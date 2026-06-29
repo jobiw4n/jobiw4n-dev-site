@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joe Natale — Developer &amp; Technologist</title>
+<meta name="description" content="Joe Natale builds and ships production systems: web development and hosting, automation and custom tooling, data dashboards, and FAA Part 107 aerial mapping. Bucks County, PA.">
+<meta name="author" content="Joe Natale">
+
+<!-- Open Graph / link-preview metadata. Helps the page look legitimate when shared. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Joe Natale — Developer & Technologist">
+<meta property="og:description" content="I build and ship working systems — websites, automations, data tools, and aerial mapping.">
+<meta property="og:url" content="https://jobiw4n.com">
+<!-- TODO (optional): add an og:image for a richer link preview, e.g.
+<meta property="og:image" content="https://jobiw4n.com/preview.png"> -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink:        #1B1C18;
+    --ink-soft:   #3C3E35;
+    --paper:      #E8E8E1;
+    --surface:    #F3F3EC;
+    --line:       #CDCEC2;
+    --muted:      #585A50;
+    --accent:     #C9750C;
+    --accent-ink: #1B1C18;
+
+    --maxw: 1080px;
+    --pad: clamp(1.25rem, 5vw, 4rem);
+
+    --f-display: "Space Grotesk", system-ui, sans-serif;
+    --f-mono: "Space Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-display);
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+  }
+
+  /* ---- shared label / eyebrow ---- */
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1.4rem;
+  }
+  .eyebrow .tick { color: var(--accent); }
+
+  /* ---- top bar ---- */
+  .topbar {
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: center;
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+    font-family: var(--f-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .topbar .brand { color: var(--ink); font-weight: 700; }
+  .topbar .sep { color: var(--accent); }
+
+  /* ---- hero ---- */
+  .hero { padding-top: clamp(3.5rem, 9vw, 7rem); padding-bottom: clamp(3rem, 7vw, 5.5rem); }
+  .hero h1 {
+    font-size: clamp(2.9rem, 9vw, 5.75rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem;
+  }
+  .hero .lead {
+    font-size: clamp(1.35rem, 3.6vw, 2.1rem);
+    font-weight: 500;
+    line-height: 1.15;
+    max-width: 18ch;
+    margin: 0 0 1.1rem;
+  }
+  .hero .sub {
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 0 2.2rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 2px;
+    border: 1px solid var(--accent);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn .arrow { transition: transform 0.15s ease; }
+  .btn:hover { background: #b3680a; }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  /* ---- generic section ---- */
+  .band { padding-top: clamp(3rem, 7vw, 5rem); padding-bottom: clamp(3rem, 7vw, 5rem); border-top: 1px solid var(--line); }
+  .band h2 {
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 2rem;
+    max-width: 24ch;
+  }
+
+  .about p {
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    line-height: 1.5;
+    max-width: 62ch;
+    margin: 0 0 1.1rem;
+    color: var(--ink-soft);
+  }
+  .about p strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- services grid ---- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .card {
+    background: var(--surface);
+    padding: 1.8rem clamp(1.25rem, 2.5vw, 1.9rem) 2rem;
+  }
+  .card .num {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .card h3 {
+    font-size: 1.22rem;
+    font-weight: 600;
+    margin: 0.5rem 0 0.7rem;
+  }
+  .card p { margin: 0; color: var(--ink-soft); font-size: 0.97rem; }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
+
+  /* ---- selected work / proof (signature) ---- */
+  .work-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 0.5rem 2rem;
+    padding: 1.6rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .work-item:last-child { border-bottom: 1px solid var(--line); }
+  .work-meta .org { font-weight: 600; font-size: 1.05rem; }
+  .work-meta .role {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 0.35rem;
+  }
+  .work-body p { margin: 0 0 0.7rem; color: var(--ink-soft); }
+  .work-body p:last-child { margin-bottom: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+  .tag {
+    font-family: var(--f-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+  .work-body a { color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
+  .work-body a:hover { border-bottom-color: var(--accent); }
+  @media (max-width: 620px) {
+    .work-item { grid-template-columns: 1fr; gap: 0.8rem; }
+  }
+
+  /* ---- background / expertise ---- */
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; max-width: 70ch; margin-top: 0.5rem; }
+  .skill-tags span {
+    font-family: var(--f-mono);
+    font-size: 0.78rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 0.45rem 0.7rem;
+    border-radius: 2px;
+    color: var(--ink-soft);
+  }
+  .cred {
+    margin-top: 2rem;
+    font-family: var(--f-mono);
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .cred b { color: var(--accent); }
+
+  /* ---- contact ---- */
+  .contact { border-top: 1px solid var(--line); }
+  .contact .big {
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .contact a.mail { color: var(--accent); text-decoration: none; border-bottom: 2px solid var(--accent); }
+  .contact .lines { font-family: var(--f-mono); font-size: 0.82rem; color: var(--muted); line-height: 2; margin-top: 2rem; }
+
+  footer { border-top: 1px solid var(--line); }
+  footer .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---- entrance motion ---- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap">
+      <span class="brand">jobiw4n.com</span>
+      <span class="sep">/</span>
+      <span>Bucks County, PA</span>
+      <span class="sep">/</span>
+      <span>FAA Part 107 Remote Pilot</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow reveal"><span class="tick">●</span> Developer &amp; Technologist</p>
+        <h1 class="reveal">Joe Natale</h1>
+        <p class="lead reveal">I build and ship working systems.</p>
+        <p class="sub reveal">Websites, automations, data tools, and aerial mapping — built end to end for the organizations that depend on them. Self-taught, production-tested, and maintained for the long haul.</p>
+        <a class="btn reveal" href="mailto:jobiw4n@gmail.com">Email me <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="band about">
+      <div class="wrap">
+        <p class="eyebrow reveal">About</p>
+        <p class="reveal">I'm a developer and technologist with more than a decade of hands-on work building <strong>production tools for nonprofits, professional societies, and public-sector teams.</strong></p>
+        <p class="reveal">No formal CS background — just a long record of shipping real things: websites that need to stay online, automations that retire manual busywork, dashboards that make data usable, and drone-based mapping and video. I take projects the whole way: design, build, deploy, and ongoing maintenance.</p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow reveal">What I do</p>
+        <h2 class="reveal">Four things I deliver end to end.</h2>
+        <div class="grid reveal">
+          <div class="card">
+            <span class="num">01</span>
+            <h3>Web development &amp; hosting</h3>
+            <p>Responsive sites built and maintained for the long haul. I handle deployment, DNS, SSL, and hosting migrations — so a site doesn't just launch, it stays running.</p>
+          </div>
+          <div class="card">
+            <span class="num">02</span>
+            <h3>Automation &amp; custom tooling</h3>
+            <p>Google Apps Script, API and webhook integrations, and workflow automation. I replace repetitive manual processes — including payment integrations and self-service systems — with tools a team can actually use.</p>
+          </div>
+          <div class="card">
+            <span class="num">03</span>
+            <h3>Data &amp; dashboards</h3>
+            <p>Structured databases and interactive dashboards that turn scattered files and spreadsheets into something a team can review fast. Built for the people who use them daily.</p>
+          </div>
+          <div class="card">
+            <span class="num">04</span>
+            <h3>Media &amp; aerial mapping</h3>
+            <p>Promotional video, interviews, and editing, plus FAA Part 107–certified drone videography, aerial mapping, and photogrammetry / 3D field mapping.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow reveal">Selected work</p>
+        <h2 class="reveal">Real organizations, shipped and in use.</h2>
+
+        <div class="reveal">
+
+          <div class="work-item">
+            <div class="work-meta">
+              <div class="org">American Society of Civil Engineers</div>
+              <div class="role">Webmaster &amp; Treasurer</div>
+            </div>
+            <div class="work-body">
+              <p>Automated the section budget with Google Apps Script and built a PayPal API/webhook integration for payment tracking. Created a raffle-ticket platform handling automated ticketing emails, the live drawing, and recordkeeping.</p>
+              <p>Built a Google Forms system that issues attendance certificates for professional-development credits — packaged so other sections nationwide could adopt it with no technical staff.</p>
+              <div class="tags"><span class="tag">Automation</span><span class="tag">Apps Script</span><span class="tag">API / Webhooks</span><span class="tag">Web</span></div>
+            </div>
+          </div>
+
+          <div class="work-item">
+            <div class="work-meta">
+              <div class="org">Regional Transportation Planning</div>
+              <div class="role">DOT-funded · MPO</div>
+            </div>
+            <div class="work-body">
+              <p>Built a project-information database in Google Drive and an interactive evaluation dashboard that made reviewing dozens of projects dramatically faster and easier.</p>
+              <div class="tags"><span class="tag">Data</span><span class="tag">Dashboards</span><span class="tag">Automation</span></div>
+            </div>
+          </div>
+
+          <div class="work-item">
+            <div class="work-meta">
+              <div class="org">Snipes Farm &amp; Education Center</div>
+              <div class="role">Web · Media · Aerial</div>
+            </div>
+            <div class="work-body">
+              <p>Built an interactive campus map and embedded it in their site. Produced promotional video including interviews and drone footage, and 3D-mapped the fields using drone photogrammetry.
+              <!-- TODO: if there's a live page to show, add a link here, e.g.:-->
+              <a href="https://snipesfarm.org/interactive-map/" target="_blank" rel="noopener">View the map ↗</a></p>
+              <div class="tags"><span class="tag">Web</span><span class="tag">Video</span><span class="tag">Drone / Part 107</span><span class="tag">Photogrammetry</span></div>
+            </div>
+          </div>
+
+          <div class="work-item">
+            <div class="work-meta">
+              <div class="org">Fostering Hope PA</div>
+              <div class="role">Web · Research</div>
+            </div>
+            <div class="work-body">
+              <p>Digitized their resource binders and built an interactive, researched resource guide for foster families.
+              <!-- TODO: if the guide is public, link it here, e.g.:-->
+              <a href="http://lb-resource.fosteringhopepa.org/" target="_blank" rel="noopener">View the family resource guide ↗</a></p>
+              <div class="tags"><span class="tag">Web</span><span class="tag">Content / Research</span></div>
+            </div>
+          </div>
+
+          <div class="work-item">
+            <div class="work-meta">
+              <div class="org">American Troop Support Team</div>
+              <div class="role">Web · Hosting</div>
+            </div>
+            <div class="work-body">
+              <p>Migrated the website to a new hosting platform and provide ongoing maintenance and hosting.
+              <!-- TODO: link the live site here, e.g.:-->
+              <a href="https://americantroopsupportteam.com/" target="_blank" rel="noopener">Visit the site ↗</a></p>
+              <div class="tags"><span class="tag">Web</span><span class="tag">Hosting</span><span class="tag">Maintenance</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKGROUND -->
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow reveal">Background &amp; expertise</p>
+        <h2 class="reveal">The infrastructure depth behind the work.</h2>
+        <p class="reveal" style="color:var(--ink-soft); max-width:62ch; margin:0 0 1.5rem;">Alongside client projects I run a substantial self-hosted infrastructure lab. It's not a service I sell — it's the hands-on foundation behind everything above: hosting, networking, automation, and reliability under real conditions.</p>
+        <div class="skill-tags reveal">
+          <span>NAS &amp; RAID storage</span>
+          <span>Automated backups</span>
+          <span>Proxmox / Docker</span>
+          <span>Caddy reverse proxy</span>
+          <span>Pi-hole</span>
+          <span>Home Assistant</span>
+          <span>n8n automation</span>
+          <span>Local LLM integration</span>
+          <span>Twingate VPN</span>
+          <span>Self-hosted media &amp; photos</span>
+          <span>Network &amp; access security</span>
+          <span>Raspberry Pi / x86</span>
+        </div>
+        <p class="cred reveal"><b>Certified:</b> FAA Part 107 Remote Pilot (commercial sUAS)</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="band contact">
+      <div class="wrap">
+        <p class="eyebrow reveal">Get in touch</p>
+        <p class="big reveal">Have a project? <a class="mail" href="mailto:jobiw4n@gmail.com">jobiw4n@gmail.com</a></p>
+        <div class="lines reveal">
+          jobiw4n.com<br>
+          Bucks County, Pennsylvania<br>
+          Available for web, automation, data, and aerial work
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="yr"></span> Joe Natale</span>
+      <span>jobiw4n.com</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Scroll-reveal, gracefully degrading and respecting reduced-motion.
+    (function () {
+      var items = document.querySelectorAll('.reveal');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
